@@ -3,17 +3,16 @@ FROM python:3-slim
 LABEL maintainer="dylandcpage@gmail.com"
 LABEL description="Plangrid homework flask app"
 
-COPY ../requirements.txt /requirements.txt
+COPY requirements.txt /requirements.txt
 
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r /requirements.txt && \
     rm -f /requirements.txt
 
-COPY ../plangrid-homework.py /plangrid-homework.py
-COPY .flaskenv /.flaskenv
+COPY app.py /app.py
 
 EXPOSE 80
 ENV PORT 80
 ENV LOGLEVEL INFO
 
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT --log-level $LOGLEVEL"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT --log-level $LOGLEVEL app:app"]

@@ -1,6 +1,5 @@
 import logging
 import json
-import os
 
 from flask import Flask
 from flask import request
@@ -8,26 +7,25 @@ from flask import request
 app = Flask(__name__)
 
 
-@app.route('/hello')
+@app.route('/')
+def main():
+    return ''
+
+
+@app.route('/hello', methods=['GET', 'POST'])
 def hello_world() -> str:
     app.logger.debug(f'{request.date} - {request.url}')
     try:
         if request.headers["Accept"].lower() == "application/json":
-            return json.dump(f'{"message": "Hello, World"}')
+            return json.dumps('{"message": "Hello, World"}')
     except KeyError:
         # The header was not present
         pass
     return f'<p>Hello, World</p>\n'
 
 
-def debug_mode():
-    if os.getenv('LOGLEVEL') == 'DEBUG':
-        return True
-    return False
-
-
 if __name__ == '__main__':
-    app.run(debug=debug_mode(), use_reloader=False)
+    app.run(debug=True, use_reloader=False)
 
 
 if __name__ != '__main__':
