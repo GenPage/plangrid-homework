@@ -8,7 +8,7 @@ from flask import request
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/hello')
 def hello_world() -> str:
     app.logger.debug(f'{request.date} - {request.url}')
     try:
