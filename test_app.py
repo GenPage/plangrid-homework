@@ -18,13 +18,13 @@ def test_client():
 def test_get(test_client):
     response = test_client.get("/hello")
     assert response.status_code == 200
-    assert b'<p>Hello, World</p>' == response.data
+    assert b'<p>Hello, World</p>\n' == response.data
 
 
 def test_post(test_client):
     response = test_client.post("/hello")
     assert response.status_code == 200
-    assert b'<p>Hello, World</p>' == response.data
+    assert b'<p>Hello, World</p>\n' == response.data
 
 
 def test_get_json(test_client):

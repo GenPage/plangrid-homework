@@ -3,6 +3,7 @@ import json
 
 from flask import Flask
 from flask import request
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -17,7 +18,7 @@ def hello_world() -> str:
     app.logger.debug(f'{request.date} - {request.url}')
     try:
         if request.headers["Accept"].lower() == "application/json":
-            return json.dumps('{"message": "Hello, World"}')
+            return jsonify({"message": "Hello, World!"})
     except KeyError:
         # The header was not present
         pass
