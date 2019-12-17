@@ -1,6 +1,6 @@
 import logging
-import json
 
+from datetime import datetime
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -8,14 +8,14 @@ from flask import jsonify
 app = Flask(__name__)
 
 
-@app.route('/')
-def main():
-    return ''
+def format_time():
+    dt = datetime.now()
+    return dt.strftime("%m/%d/%Y, %H:%M:%S")
 
 
 @app.route('/hello', methods=['GET', 'POST'])
 def hello_world() -> str:
-    app.logger.debug(f'{request.date} - {request.url}')
+    app.logger.debug(f'{format_time} - {request.url}')
     try:
         if request.headers["Accept"].lower() == "application/json":
             return jsonify({"message": "Hello, World!"})
